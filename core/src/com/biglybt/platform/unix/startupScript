@@ -75,7 +75,7 @@ check_version() {
 	fi
 
 	JAVA_HEADER=$("$JAVABIN" -version 2>&1 | grep -i version | head -n 1)
-	if [ "$JAVA_HEADER" = "" ]; then
+	if [ -z "$JAVA_HEADER" ]; then
  		echo "ERROR: Failed to detect JAVA version" >&2
 	fi
 	
@@ -108,7 +108,7 @@ runJavaOutput() {
 		${JAVA_PROPS} \
 		${JAVA_ARGS} \
 		"$@"`
-	if [ ! "$RESULT" = "" ]; then
+	if [ ! -z "$RESULT" ]; then
 		eval "${RESULT}"
 	fi
 }
@@ -164,7 +164,7 @@ moveInSWT() {
 echo "$MSG_STARTING"
 
 # locate and test the java executable
-if [ "$JAVA_PROGRAM_DIR" == "" ]; then
+if [ -z "$JAVA_PROGRAM_DIR" ]; then
 	if ! look_for_java; then
 		exit 1
 	fi
