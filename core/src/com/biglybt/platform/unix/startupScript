@@ -36,9 +36,8 @@ JAVA_VERSION=""
 isJ17=false
 JAVABIN="${JAVA_PROGRAM_DIR}java"
 
-look_for_java()
-{
-  # check if java is in path.  If it is, we do not need to search
+look_for_java() {
+	# check if java is in path.  If it is, we do not need to search
 	if command -v java &>/dev/null; then
 		if check_version; then
 			return 0
@@ -70,8 +69,7 @@ look_for_java()
 	return 1
 }
 
-check_version()
-{
+check_version() {
 	JAVA_ISGCJ=$($JAVABIN -version 2>&1 | grep "gcj")
 	if [ ! "$JAVA_ISGCJ x" = " x" ]; then
 		echo "$MSG_ISGCJ"
@@ -100,8 +98,7 @@ check_version()
 	fi
 }
 
-runJavaOutput()
-{
+runJavaOutput() {
 	# assume we can write to the user's home..
 
 	RESULT=`$JAVABIN \
@@ -122,8 +119,7 @@ exists () {
   type "$1" >/dev/null 2>/dev/null
 }
 
-moveInSWT()
-{
+moveInSWT() {
   SWTDIR="${PROGRAM_DIR}/swt"
 
   if [ ! -d "$SWTDIR" ] || [ -z "$(ls -A "$SWTDIR")" ]; then
