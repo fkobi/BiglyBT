@@ -51,7 +51,7 @@ look_for_java() {
 		potential_java_dirs=($(ls -1 "$JAVADIR" | sort | tac 2>/dev/null))
 		IFS=
 		for D in "${potential_java_dirs[@]}"; do
-			if [[ -d "$JAVADIR/$D" && -x "$JAVADIR/$D/bin/java" ]]; then
+			if [ -d "$JAVADIR/$D" && -x "$JAVADIR/$D/bin/java" ]; then
 				JAVA_PROGRAM_DIR="$JAVADIR/$D/bin/"
 				JAVABIN="${JAVA_PROGRAM_DIR}java"
 				echo "$MSG2" "$JAVA_PROGRAM_DIR"
@@ -124,7 +124,7 @@ moveInSWT() {
 		return;
 	fi
 	arch=$(uname -m)
-	if [[ "$OSTYPE" = "FreeBSD" ]]; then
+	if [ "$OSTYPE" = "FreeBSD" ]; then
 		SWTFILE="swt/swt-bsd.jar"
 	elif $isJ17 && [ -f "${SWTDIR}/J17/swt-${arch}.jar" ]; then
 		SWTFILE="swt/J17/swt-${arch}.jar"
