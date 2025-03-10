@@ -206,7 +206,7 @@ done
 #      and often has different UI quirks that we haven't worked around yet
 
 for FILE in ./*.jar; do
-	if [[ ! "${CLASSPATH}" == *"$FILE"* ]]; then
+	if [[ "${CLASSPATH}" != *"$FILE"* ]]; then
 		CLASSPATH="${CLASSPATH:+${CLASSPATH}:}$FILE"
 	fi
 done
