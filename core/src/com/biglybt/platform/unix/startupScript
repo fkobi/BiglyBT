@@ -2,8 +2,8 @@
 
 ######## CONFIGURATION OPTIONS ########
 AUTOUPDATE_SCRIPT=1 # change to 0 if you don't want your changes overwritten on next SCRIPT_VERSION change
-JAVA_PROGRAM_DIR=""	# use full path to java bin dir, ex. "/usr/java/j2sdk1.4.2/bin/"
-#PROGRAM_DIR="/home/username/apps/biglybt"	# use full path to BiglyBT bin dir
+JAVA_PROGRAM_DIR="" # use full path to java bin dir, ex. "/usr/java/j2sdk1.4.2/bin/"
+#PROGRAM_DIR="/home/username/apps/biglybt" # use full path to BiglyBT bin dir
 JAVA_PROPS=""
 
 #######################################
@@ -40,7 +40,7 @@ look_for_java()
 {
   # check if java is in path.  If it is, we do not need to search
 	if command -v java &>/dev/null; then
-		if check_version ; then
+		if check_version; then
 			return 0
 		fi
 	fi
@@ -58,14 +58,14 @@ look_for_java()
 				JAVA_PROGRAM_DIR="$JAVADIR/$D/bin/"
 				JAVABIN="${JAVA_PROGRAM_DIR}java"
 				echo "$MSG2" "$JAVA_PROGRAM_DIR"
-				if check_version ; then
+				if check_version; then
 					return 0
 				fi
 			fi
 		done
 	done
 
-	echo "${MSG8}${JAVADIR}/${MSG9}" ; echo "$MSG_JAVA_BELOW_MIN"
+	echo "${MSG8}${JAVADIR}/${MSG9}"; echo "$MSG_JAVA_BELOW_MIN"
 
 	return 1
 }
@@ -73,25 +73,25 @@ look_for_java()
 check_version()
 {
 	JAVA_ISGCJ=$($JAVABIN -version 2>&1 | grep "gcj")
-	if [ ! "$JAVA_ISGCJ x" = " x" ] ; then
+	if [ ! "$JAVA_ISGCJ x" = " x" ]; then
 		echo "$MSG_ISGCJ"
 		return 1
 	fi
 
 	JAVA_HEADER=$("$JAVABIN" -version 2>&1 | grep -i version | head -n 1)
-	if [ "$JAVA_HEADER" = "" ] ; then
+	if [ "$JAVA_HEADER" = "" ]; then
  		echo "ERROR: Failed to detect JAVA version" >&2
 	fi
 	
 	JAVA_IMPL=$(echo "${JAVA_HEADER}" | cut -f1 -d' ')
-	if [ "$JAVA_IMPL" = "#" ] ; then
+	if [ "$JAVA_IMPL" = "#" ]; then
 		echo "$MSG_JAVABORK"
     	$JAVABIN -version 2>&1
     	exit 1
 	else
 		JAVA_VERSION=$(echo "${JAVA_HEADER}" | sed "s/^.* version \"\(.*\)\".*$/\1/")
-		if echo "$JAVA_VERSION" | grep "^1.[0-7]" ; then
-			echo "$MSG_JAVA_TOO_OLD" "[$JAVABIN = ${JAVA_VERSION}]" ; echo "$MSG_JAVA_BELOW_MIN"
+		if echo "$JAVA_VERSION" | grep "^1.[0-7]"; then
+			echo "$MSG_JAVA_TOO_OLD" "[$JAVABIN = ${JAVA_VERSION}]"; echo "$MSG_JAVA_BELOW_MIN"
 			return 1
 		else
 			echo "${MSG5} [$JAVABIN = ${JAVA_IMPL} ${JAVA_VERSION}]"
@@ -172,16 +172,16 @@ echo "$MSG_STARTING"
 
 # locate and test the java executable
 if [ "$JAVA_PROGRAM_DIR" == "" ]; then
-	if ! look_for_java ; then
+	if ! look_for_java; then
 		exit 1
 	fi
 fi
 
 # Java 11+ needs --add-opens, which borks some older java versions
-if echo "$JAVA_VERSION" | grep -E "^(1[1-9]|[2-9][0-9])\." > /dev/null ; then
+if echo "$JAVA_VERSION" | grep -E "^(1[1-9]|[2-9][0-9])\." > /dev/null; then
   JAVA_ARGS="${JAVA_ARGS} --add-opens java.base/java.net=ALL-UNNAMED"
 fi
-if echo "$JAVA_VERSION" | grep -E "^(1[7-9]|[2-9][0-9])\." > /dev/null ; then
+if echo "$JAVA_VERSION" | grep -E "^(1[7-9]|[2-9][0-9])\." > /dev/null; then
   isJ17=true
 fi
 
