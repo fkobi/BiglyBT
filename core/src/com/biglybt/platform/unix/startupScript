@@ -82,8 +82,8 @@ check_version() {
 	JAVA_IMPL=$(echo "${JAVA_HEADER}" | cut -f1 -d' ')
 	if [ "$JAVA_IMPL" = "#" ]; then
 		echo "$MSG_JAVABORK"
-    	$JAVABIN -version 2>&1
-    	exit 1
+    		$JAVABIN -version 2>&1
+    		exit 1
 	else
 		JAVA_VERSION=$(echo "${JAVA_HEADER}" | sed "s/^.* version \"\(.*\)\".*$/\1/")
 		if echo "$JAVA_VERSION" | grep "^1.[0-7]"; then
@@ -118,10 +118,9 @@ exists () {
 }
 
 moveInSWT() {
-  SWTDIR="${PROGRAM_DIR}/swt"
+	SWTDIR="${PROGRAM_DIR}/swt"
 
-  if [ ! -d "$SWTDIR" ] || [ -z "$(ls -A "$SWTDIR")" ]; then
-		# No swt dir
+	if [ ! -d "$SWTDIR" ] || [ -z "$(ls -A "$SWTDIR")" ]; then # No swt dir
 		return;
 	fi
 	arch=$(uname -m)
@@ -173,16 +172,16 @@ fi
 
 # Java 11+ needs --add-opens, which borks some older java versions
 if echo "$JAVA_VERSION" | grep -E "^(1[1-9]|[2-9][0-9])\." > /dev/null; then
-  JAVA_ARGS="${JAVA_ARGS} --add-opens java.base/java.net=ALL-UNNAMED"
+	JAVA_ARGS="${JAVA_ARGS} --add-opens java.base/java.net=ALL-UNNAMED"
 fi
 if echo "$JAVA_VERSION" | grep -E "^(1[7-9]|[2-9][0-9])\." > /dev/null; then
-  isJ17=true
+	isJ17=true
 fi
 
 # get the app dir if not already defined
 if [ -z "$PROGRAM_DIR" ]; then
-		PROGRAM_DIR=$(dirname "$0")
-		PROGRAM_DIR=$(cd "$PROGRAM_DIR"; pwd)
+	PROGRAM_DIR=$(dirname "$0")
+	PROGRAM_DIR=$(cd "$PROGRAM_DIR"; pwd)
 elif [ ! -f "${PROGRAM_DIR}/BiglyBT.jar" ]; then
 	echo "Unable to locate BiglyBT.jar in $PROGRAM_DIR, aborting!"
 	exit 1
