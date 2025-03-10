@@ -38,10 +38,8 @@ JAVABIN="${JAVA_PROGRAM_DIR}java"
 
 look_for_java() {
 	# check if java is in path.  If it is, we do not need to search
-	if command -v java &>/dev/null; then
-		if check_version; then
-			return 0
-		fi
+	if command -v java &>/dev/null && check_version; then
+		return 0
 	fi
 
 	echo "$MSG_JAVASEARCH"
