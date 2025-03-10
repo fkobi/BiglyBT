@@ -108,7 +108,7 @@ runJavaOutput() {
 		${JAVA_PROPS} \
 		${JAVA_ARGS} \
 		"$@"`
-	if [ ! -z "$RESULT" ]; then
+	if [ -n "$RESULT" ]; then
 		eval "${RESULT}"
 	fi
 }
