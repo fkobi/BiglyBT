@@ -65,7 +65,7 @@ look_for_java()
 		done
 	done
 
-	echo "${MSG8}${JAVADIR}/${MSG9}"; echo "$MSG_JAVA_BELOW_MIN"
+	echo "${MSG8}${JAVADIR}/${MSG9}\n$MSG_JAVA_BELOW_MIN"
 
 	return 1
 }
